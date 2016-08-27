@@ -274,4 +274,7 @@
          config to 7. -->
     <integer name="config_deviceHardwareKeys">0</integer>
 
+    <!-- Allow the menu hard key to be disabled in LockScreen on some devices -->
+    <bool name="config_disableMenuKeyInLockScreen">true</bool>
+
 </resources>
