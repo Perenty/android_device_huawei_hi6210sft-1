@@ -140,34 +140,6 @@ on early-boot_hw
 
 on boot
 
-service hdbd /sbin/hdbd --root_seclabel=u:r:su:s0 --device_banner=recovery
-    disabled
-    socket hdbd stream 660 system system
-    seclabel u:r:hdbd:s0
-
-service kmsgcat_cp /sbin/kmsgcat -r 4096 -n 25 -i /dev/cshell_log  -f /data/hwzd_logs/cp_log/modemlog/modemkmsg-log
-    class server
-    user root
-    disabled
-    seclabel u:r:hisilogcat:s0
-
-service kmsglogcat /sbin/kmsgcat -r 4096 -z 2 -n 2 -f /splash2/kmsg_log
-    class server
-    user root
-    disabled
-    seclabel u:r:hisilogcat:s0
-
-service logctl_service /sbin/logctl_service -m 2
-    class server
-    user root
-    oneshot
-    seclabel u:r:hisilogcat:s0
-
-service oeminfo_nvm /sbin/oeminfo_nvm_server
-    critical
-    ioprio rt 4
-    seclabel u:r:oeminfo_nvm:s0
-
 service teecd /sbin/teecd
     disabled
     user root
