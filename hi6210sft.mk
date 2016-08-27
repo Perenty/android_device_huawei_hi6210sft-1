@@ -102,6 +102,10 @@ PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/ramdisk/sbin/volisnotd:root/sbin/volisnotd \
 
 # RIL
+PRODUCT_PACKAGES += \
+    	CellBroadcastReceiver \
+	Stk
+
 PRODUCT_PROPERTY_OVERRIDES += \
     audioril.lib=libhuawei-audio-ril.so \
     ro.telephony.ril_class=HuaweiRIL
