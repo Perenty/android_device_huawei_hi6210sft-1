@@ -86,19 +86,6 @@ service agnsslog /system/bin/agnsslog
     group system inet root
     disabled
 
-service gpsd_47531 /system/bin/bcm47531/glgps -c /data/gps/gpsconfig.xml
-    socket gps seqpacket 660 root root
-    class main
-    user root
-    group system inet
-    disabled
-
-service chr_logd /system/bin/chr_logd
-    class late_start
-    user system
-    group system root bluetooth wifi
-    disabled
-
 service dhcpcd_p2p /system/bin/dhcpcd -aABKL
     class main
     disabled

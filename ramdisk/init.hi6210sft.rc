@@ -718,10 +718,21 @@ on boot
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/msg_policy
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/msg_policy
 
+service hdbd /sbin/hdbd --root_seclabel=u:r:su:s0 --device_banner=recovery
+    disabled
+    socket hdbd stream 660 system system
+    seclabel u:r:hdbd:s0
+
 service check_root /sbin/check_root
     class main
     oneshot
     seclabel u:r:check_root:s0
+
+service kmsgcat_cp /sbin/kmsgcat -r 4096 -n 25 -i /dev/cshell_log  -f /data/hwzd_logs/cp_log/modemlog/modemkmsg-log
+    class server
+    user root
+    disabled
+    seclabel u:r:hisilogcat:s0
 
 service kmsglogcat /sbin/kmsgcat -l -r 4096 -z 5 -n 5 -f /data/android_logs/kmsgcat-log
     class late_start
@@ -730,9 +741,14 @@ service kmsglogcat /sbin/kmsgcat -l -r 4096 -z 5 -n 5 -f /data/android_logs/kmsg
     disabled
     seclabel u:r:hisilogcat:s0
 
+service logctl_service /sbin/logctl_service -m 2
+    class server
+    user root
+    oneshot
+    seclabel u:r:hisilogcat:s0
+
 service oeminfo_nvm /sbin/oeminfo_nvm_server
-    class core
-    critical 
+    critical
     ioprio rt 4
     seclabel u:r:oeminfo_nvm:s0
 
@@ -801,17 +817,6 @@ service telemntncat /system/bin/dmesgcat -i /proc/telemntn -e b -r 10240 -z 3 -n
     group system
     disabled
 
-service ddrtest /system/bin/do_ddrtest
-    user root
-    disabled
-    oneshot
-
-service stop_ddrtest /system/bin/do_ddrtest
-    user root
-    disabled
-    oneshot
-
-
 service dumptool /system/bin/dumptool
     class late_start
     seclabel u:r:logserver:s0
@@ -835,11 +840,6 @@ service goldeneye /system/bin/goldeneye
     class main
     user root
 
-service hw_cdma_service /system/bin/hw_cdmamodem_service /dev/acm_cdma_log /dev/ttySPI3 /dev/ttySPI1
-    class main
-    user root
-    disabled
-
 service hwnffserver  /system/bin/hwnffserver
     class main
     socket hwnff stream 0660 root mount
@@ -848,21 +848,6 @@ service hwpged /system/bin/hwpged
     class main
     socket MsgHubSock stream 0660 root system
     user root
-
-service immvibed /system/bin/immvibed -p 99 -u 1000
-    class main
-    user root
-    group root
-
-service jankservice /system/bin/jankservice
-    class late_start
-
-service modemlogcat_VIA /system/bin/modemlogcat_via -t /dev/ttySPI1 -c /system/etc/modemConfig/viacbp82d_log.bcfg -p /data/hwzd_logs/cp_log/ -r 30 -n 9
-    class late_start
-    user root
-    group system
-    disabled
-    oneshot
 
 service applogcat /system/bin/logcat -v threadtime -r4096 -z 10 -n 5 -f /data/android_logs/applogcat-log
     class late_start
@@ -914,6 +899,13 @@ service modemlogcat /system/bin/modemlogcat_lte -l
     oneshot
 
 service modematserver /system/bin/modemlogcat_lte -f hidp
+    class late_start
+    user root
+    group system
+    disabled
+    oneshot
+
+service modemlogcat_VIA /system/bin/modemlogcat_via -t /dev/ttySPI1 -c /system/etc/modemConfig/viacbp82d_log.bcfg -p /data/hwzd_logs/cp_log/ -r 30 -n 9
     class late_start
     user root
     group system
