@@ -21,11 +21,18 @@ PRODUCT_COPY_FILES += \
         device/huawei/hi6210sft/modules/lcd.ko:system/modules/lcd.ko \
 
 # Ramdisk
-PRODUCT_PACKAGES += \
-    	fstab.hi6210sft \
-    	init.audio.rc \
-    	init.connectivity.rc \
-    	init.hi6210sft.rc \
-    	init.recovery.hi6210sft.rc \
-    	init.usb.hi6210sft.rc \
-    	ueventd.hi6210sft.rc
+PRODUCT_COPY_FILES += \
+        $(LOCAL_PATH)/ramdisk/fstab.hi6210sft:root/fstab.hi6210sft \
+        $(LOCAL_PATH)/ramdisk/init.audio.rc:root/init.audio.rc \
+        $(LOCAL_PATH)/ramdisk/init.connectivity.rc:root/init.connectivity.rc \
+        $(LOCAL_PATH)/ramdisk/init.hi6210sft.rc:root/init.hi6210sft.rc \
+        $(LOCAL_PATH)/ramdisk/init.recovery.hi6210sft.rc:root/init.recovery.hi6210sft.rc \
+        $(LOCAL_PATH)/ramdisk/init.usb.hi6210sft.rc:root/init.usb.hi6210sft.rc \
+        $(LOCAL_PATH)/ramdisk/ueventd.hi6210sft.rc:root/ueventd.hi6210sft.rc \
+        $(LOCAL_PATH)/ramdisk/sbin/check_root:root/sbin/check_root \
+        $(LOCAL_PATH)/ramdisk/sbin/hw_ueventd:root/sbin/hw_ueventd \
+        $(LOCAL_PATH)/ramdisk/sbin/kmsgcat:root/sbin/kmsgcat \
+        $(LOCAL_PATH)/ramdisk/sbin/logctl_service:root/sbin/logctl_service \
+        $(LOCAL_PATH)/ramdisk/sbin/oeminfo_nvm_server:root/sbin/oeminfo_nvm_server \
+        $(LOCAL_PATH)/ramdisk/sbin/teecd:root/sbin/teecd \
+        $(LOCAL_PATH)/ramdisk/sbin/volisnotd:root/sbin/volisnotd \
