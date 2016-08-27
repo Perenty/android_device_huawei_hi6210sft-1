@@ -108,6 +108,9 @@ TARGET_RECOVERY_FSTAB := device/huawei/hi6210sft/ramdisk/fstab.hi6210sft
 TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 
+# RIL
+BOARD_RIL_CLASS := ../../../device/huawei/hi6210sft/ril/
+
 # Sepolicy
 BOARD_SEPOLICY_DIRS += \
     	device/huawei/hi6210sft/sepolicy

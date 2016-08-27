@@ -101,6 +101,18 @@ PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/ramdisk/sbin/teecd:root/sbin/teecd \
         $(LOCAL_PATH)/ramdisk/sbin/volisnotd:root/sbin/volisnotd \
 
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    audioril.lib=libhuawei-audio-ril.so \
+    ro.telephony.ril_class=HuaweiRIL
+
+# LTE, CDMA, GSM/WCDMA
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.default_network=9 \
+    telephony.lteOnCdmaDevice=0 \
+    telephony.lteOnGsmDevice=1
+
+
 # Zygote
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	ro.zygote=zygote64_32
